@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/target/
-/.idea/
 /.idea/workspace.xml
-RestAssuredPractice.iml
+/.idea/
+/target/
+/src/test/resources/
