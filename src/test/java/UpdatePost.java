@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class UpdatePost {
 
     @Test
-    public void replacePostMap(){
+    public void replacePostMap() {
         Map<String, Object> post = new HashMap<>();
         post.put("title", "updatePostTitle");
         post.put("author", "updateJakub");
@@ -21,7 +21,7 @@ public class UpdatePost {
     }
 
     @Test
-    public void replacePostObject(){
+    public void replacePostObject() {
         Post newPost = new Post();
         newPost.setAuthor("updateJakubObject");
 //        newPost.setTitle("updatePostObjectTitle");
@@ -32,7 +32,7 @@ public class UpdatePost {
     }
 
     @Test
-    public void updatePost(){
+    public void updatePost() {
         Post newPost = new Post();
         newPost.setAuthor("updateJakubPatchMethod");
 

@@ -2,11 +2,11 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.when;
 
-public class GetSpecificPostTest {
+public class DeletePost {
 
     @Test
-    public void getPost() {
-        when().get("http://localhost:3000/posts/3")
+    public void deletePost() {
+        when().delete("http://localhost:3000/posts/3")
                 .then().log().all();
     }
 }
