@@ -11,6 +11,7 @@ import static io.restassured.RestAssured.given;
 
 public class AddPostTest {
 
+    //adding new posts
     @Test
     public void addPost() {
         String newPostBody = "{\n" +
@@ -23,6 +24,7 @@ public class AddPostTest {
                 .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 
+    //adding post from file in resources directory
     @Test
     public void addPostFromFile() {
         File newPost = new File("src/test/resources/post.json");
@@ -32,6 +34,7 @@ public class AddPostTest {
                 .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 
+    //adding post using map
     @Test
     public void addPostMap() {
         Map<String, Object> newPost = new HashMap<>();
@@ -43,6 +46,7 @@ public class AddPostTest {
                 .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 
+    //adding post from Post class object in model directory
     @Test
     public void addPostObject() {
         Post newPost = new Post();

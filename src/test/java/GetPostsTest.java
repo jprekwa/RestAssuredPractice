@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.when;
 
 public class GetPostsTest {
 
+    //getting all posts
     @Test
     public void getPosts() {
         when().get("http://localhost:3000/posts")

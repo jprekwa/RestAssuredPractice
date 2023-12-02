@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 
 public class GetSpecificPostTest {
 
+    //getting specific post using path param
     @Test
     public void getPost() {
         given().pathParam("postId", 1)

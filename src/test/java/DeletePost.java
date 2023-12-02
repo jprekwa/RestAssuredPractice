@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 
 public class DeletePost {
 
+    //deleting post using path params
     @Test
     public void deletePost() {
 //        given().pathParam("postId", 3)

@@ -8,6 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class FilterPosts {
 
+    //filtering posts using query param
     @Test
     public void filterPostsByAuthor() {
         given().log().all().queryParam("author", "Jakub The Third")
@@ -22,6 +23,7 @@ public class FilterPosts {
                 .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
     }
 
+    //filtering posts using map
     @Test
     public void filterPostsByAuthorAndTitle() {
         Map<String, Object> params = new HashMap<>();

@@ -10,6 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class UpdatePost {
 
+    //replacing post using map
     @Test
     public void replacePostMap() {
         Map<String, Object> post = new HashMap<>();
@@ -30,6 +31,7 @@ public class UpdatePost {
 
     }
 
+    //replacing post using object
     @Test
     public void replacePostObject() {
         Post newPost = new Post();
@@ -49,6 +51,7 @@ public class UpdatePost {
 //                .then().log().all();
     }
 
+    //updating post
     @Test
     public void updatePost() {
         Post newPost = new Post();

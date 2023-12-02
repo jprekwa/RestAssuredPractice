@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 
 public class VerifyResponse {
 
+    //verifying whole response body
     @Test
     public void getPost() {
         String expected = "{\n" +
@@ -18,6 +19,7 @@ public class VerifyResponse {
                 then().log().all().body(Matchers.equalTo(expected));
     }
 
+    //verifying part of response body
     @Test
     public void getPostContains() {
         given().log().all()
@@ -25,6 +27,7 @@ public class VerifyResponse {
                 then().log().all().body(Matchers.containsStringIgnoringCase("jakub"));
     }
 
+    //verifying two field in response body
     @Test
     public void checkSpecificField() {
         given().log().all()
