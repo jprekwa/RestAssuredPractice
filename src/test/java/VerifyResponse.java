@@ -1,3 +1,4 @@
+import io.restassured.http.ContentType;
 import model.Post;
 import org.hamcrest.Matchers;
 import org.testng.Assert;
@@ -52,5 +53,19 @@ public class VerifyResponse {
         Assert.assertEquals(newPost.getAuthor(), "Jakub The First");
         Assert.assertEquals(newPost.getTitle(), "updatePost");
         Assert.assertEquals(newPost.getId(), id);
+    }
+
+    //verifying response body using objects after creating post
+    @Test
+    public void addPostObject() {
+        Post newPost = new Post();
+        newPost.setAuthor("Jakub The Object");
+        newPost.setTitle("Object Title");
+
+        Post createdPost = given().log().all().contentType(ContentType.JSON).body(newPost)
+                .when().post("http://localhost:3000/posts")
+                .then().log().all().extract().body().as(Post.class);
+
+        Assert.assertEquals(newPost, createdPost);
     }
 }
