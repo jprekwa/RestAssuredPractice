@@ -1,3 +1,4 @@
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -11,14 +12,14 @@ public class FilterPosts {
     public void filterPostsByAuthor() {
         given().log().all().queryParam("author", "Jakub The Third")
                 .when().get("http://localhost:3000/posts/")
-                .then().log().all();
+                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
     }
 
     @Test
     public void filterPostsById() {
         given().log().all().queryParam("id", "1", "2")
                 .when().get("http://localhost:3000/posts/")
-                .then().log().all();
+                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
     }
 
     @Test
@@ -29,7 +30,7 @@ public class FilterPosts {
 
         given().log().all().queryParams(params)
                 .when().get("http://localhost:3000/posts/")
-                .then().log().all();
+                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
 
     }
 }

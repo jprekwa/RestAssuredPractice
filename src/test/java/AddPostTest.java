@@ -1,5 +1,6 @@
 import io.restassured.http.ContentType;
 import model.Post;
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class AddPostTest {
 
         given().log().all().contentType(ContentType.JSON).body(newPostBody)
                 .when().post("http://localhost:3000/posts")
-                .then().log().all();
+                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 
     @Test
@@ -28,7 +29,7 @@ public class AddPostTest {
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
                 .when().post("http://localhost:3000/posts")
-                .then().log().all();
+                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 
     @Test
@@ -39,7 +40,7 @@ public class AddPostTest {
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
                 .when().post("http://localhost:3000/posts")
-                .then().log().all();
+                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 
     @Test
@@ -50,6 +51,6 @@ public class AddPostTest {
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
                 .when().post("http://localhost:3000/posts")
-                .then().log().all();
+                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
     }
 }

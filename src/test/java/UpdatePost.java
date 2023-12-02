@@ -1,5 +1,6 @@
 import io.restassured.http.ContentType;
 import model.Post;
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class UpdatePost {
 
         given().log().all().contentType(ContentType.JSON).body(post)
                 .when().put("http://localhost:3000/posts/{postId}", 1)
-                .then().log().all();
+                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
 
     }
 
@@ -41,7 +42,7 @@ public class UpdatePost {
 
         given().pathParam("postId", 2).contentType(ContentType.JSON).body(newPost)
                 .when().put("http://localhost:3000/posts/{postId}")
-                .then().log().all();
+                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
 
 //        given().log().all().contentType(ContentType.JSON).body(newPost)
 //                .when().put("http://localhost:3000/posts/{postId}", 2)
@@ -63,7 +64,7 @@ public class UpdatePost {
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
                 .when().patch("http://localhost:3000/posts/{postId}", 2)
-                .then().log().all();
+                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
     }
 
 }
