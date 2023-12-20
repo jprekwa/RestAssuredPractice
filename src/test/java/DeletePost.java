@@ -1,7 +1,7 @@
-import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.containsString;
 
 public class DeletePost {
 
@@ -12,8 +12,9 @@ public class DeletePost {
 //                .when().delete("http://localhost:3000/posts/{postId}")
 //                .then().log().all();
 
-        given().log().all()
-                .when().delete("http://localhost:3000/posts/{postId}", 9)
-                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
+        when().
+                delete("http://localhost:3000/posts/{postId}", 12).
+        then().
+                statusCode(200).statusLine(containsString("OK"));
     }
 }

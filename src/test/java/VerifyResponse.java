@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.equalTo;
 
 public class VerifyResponse {
 
@@ -17,26 +19,30 @@ public class VerifyResponse {
                 "  \"id\": 1\n" +
                 "}";
 
-        given().log().all()
-                .when().get("http://localhost:3000/posts/{postId}", 1)
-                .then().log().all().body(Matchers.equalTo(expected));
+                when().
+                        get("http://localhost:3000/posts/{postId}", 1).
+                then().
+                        assertThat().body(equalTo(expected));
     }
 
     //verifying part of response body
     @Test
     public void getPostContains() {
-        given().log().all()
-                .when().get("http://localhost:3000/posts/{postId}", 1)
-                .then().log().all().body(Matchers.containsStringIgnoringCase("jakub"));
+                when().
+                        get("http://localhost:3000/posts/{postId}", 1).
+                then().
+                        assertThat().body(Matchers.containsStringIgnoringCase("jakub"));
     }
 
     //verifying two field in response body
     @Test
     public void checkSpecificField() {
-        given().log().all()
-                .when().get("http://localhost:3000/posts/{postId}", 1)
-                .then().log().all().body("title", Matchers.equalTo("updatePost"))
-                .and().body("author", Matchers.equalTo("Jakub The First"));
+                when().
+                        get("http://localhost:3000/posts/{postId}", 1).
+                then().
+                        assertThat().body("title", equalTo("updatePost")).
+                and().
+                        assertThat().body("author", equalTo("Jakub The First"));
     }
 
     //verifying response body using response body as an object
@@ -44,11 +50,15 @@ public class VerifyResponse {
     public void getPostObject() {
         Integer id = 1;
 
-        Post newPost = given().log().all()
-                .when().get("http://localhost:3000/posts/{postId}", id)
-                .then().log().all().body("title", Matchers.equalTo("updatePost"))
-                .and().body("author", Matchers.equalTo("Jakub The First"))
-                .extract().as(Post.class);
+        Post newPost =
+                when().
+                        get("http://localhost:3000/posts/{postId}", id).
+                then().
+                        body("title", equalTo("updatePost")).
+                and().
+                        body("author", equalTo("Jakub The First")).
+                extract()
+                        .as(Post.class);
 
         Assert.assertEquals(newPost.getAuthor(), "Jakub The First");
         Assert.assertEquals(newPost.getTitle(), "updatePost");
@@ -62,9 +72,13 @@ public class VerifyResponse {
         newPost.setAuthor("Jakub The Object");
         newPost.setTitle("Object Title");
 
-        Post createdPost = given().log().all().contentType(ContentType.JSON).body(newPost)
-                .when().post("http://localhost:3000/posts")
-                .then().log().all().extract().body().as(Post.class);
+        Post createdPost =
+                given().
+                        contentType(ContentType.JSON).body(newPost).
+                when().
+                        post("http://localhost:3000/posts").
+                then().
+                        extract().body().as(Post.class);
 
         Assert.assertEquals(newPost, createdPost);
     }

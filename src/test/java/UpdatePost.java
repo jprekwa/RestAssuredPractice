@@ -1,12 +1,12 @@
 import io.restassured.http.ContentType;
 import model.Post;
-import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
 public class UpdatePost {
 
@@ -17,17 +17,26 @@ public class UpdatePost {
         post.put("title", "updatePost");
         post.put("author", "Jakub The First");
 
-//        given().log().all().contentType(ContentType.JSON).body(post)
-//                .when().put("http://localhost:3000/posts/1")
-//                .then().log().all();
+        given().
+                contentType(ContentType.JSON).body(post).
+        when().
+                put("http://localhost:3000/posts/1").
+        then().
+                statusCode(200).statusLine(containsString("OK"));
 
-//        given().pathParam("postId", 1).contentType(ContentType.JSON).body(post)
-//                .when().put("http://localhost:3000/posts/{postId}")
-//                .then().log().all();
+//        given().
+//                pathParam("postId", 1).contentType(ContentType.JSON).body(post).
+//        when().
+//                put("http://localhost:3000/posts/{postId}").
+//        then().
+//                statusCode(200).statusLine(containsString("OK"));
 
-        given().log().all().contentType(ContentType.JSON).body(post)
-                .when().put("http://localhost:3000/posts/{postId}", 1)
-                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
+//        given().
+//                contentType(ContentType.JSON).body(post).
+//        when().
+//                put("http://localhost:3000/posts/{postId}", 1).
+//        then().
+//                statusCode(200).statusLine(containsString("OK"));
 
     }
 
@@ -38,36 +47,54 @@ public class UpdatePost {
         newPost.setAuthor("Jakub The Second");
         newPost.setTitle("The Second Title");
 
-//        given().log().all().contentType(ContentType.JSON).body(newPost)
-//                .when().put("http://localhost:3000/posts/2")
-//                .then().log().all();
+//        given().
+//                contentType(ContentType.JSON).body(newPost).
+//        when().
+//                put("http://localhost:3000/posts/2").
+//        then().
+//                statusCode(200).statusLine(containsString("OK"));
 
-        given().pathParam("postId", 2).contentType(ContentType.JSON).body(newPost)
-                .when().put("http://localhost:3000/posts/{postId}")
-                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
+        given().
+                pathParam("postId", 2).contentType(ContentType.JSON).body(newPost).
+        when().
+                put("http://localhost:3000/posts/{postId}").
+        then().
+                statusCode(200).statusLine(containsString("OK"));
 
-//        given().log().all().contentType(ContentType.JSON).body(newPost)
-//                .when().put("http://localhost:3000/posts/{postId}", 2)
-//                .then().log().all();
+//        given().
+//                contentType(ContentType.JSON).body(newPost).
+//        when().
+//                put("http://localhost:3000/posts/{postId}", 2).
+//        then().
+//                statusCode(200).statusLine(containsString("OK"));
     }
 
     //updating post
     @Test
     public void updatePost() {
         Post newPost = new Post();
-        newPost.setAuthor("Jakub The Third");
+        newPost.setAuthor("Jakub The First");
 
-//        given().contentType(ContentType.JSON).body(newPost)
-//                .when().patch("http://localhost:3000/posts/1")
-//                .then().log().all();
+//        given().
+//                contentType(ContentType.JSON).body(newPost).
+//        when().
+//                patch("http://localhost:3000/posts/1").
+//        then().
+//                statusCode(200).statusLine(containsString("OK"));
 
-//        given().pathParam("postId", 1).contentType(ContentType.JSON).body(newPost)
-//                .when().patch("http://localhost:3000/posts/{postId}")
-//                .then().log().all();
+//        given().
+//                pathParam("postId", 1).contentType(ContentType.JSON).body(newPost).
+//        when().
+//                patch("http://localhost:3000/posts/{postId}").
+//        then().
+//                statusCode(200).statusLine(containsString("OK"));
 
-        given().log().all().contentType(ContentType.JSON).body(newPost)
-                .when().patch("http://localhost:3000/posts/{postId}", 2)
-                .then().log().all().statusCode(200).statusLine(Matchers.containsString("OK"));
+        given().
+                contentType(ContentType.JSON).body(newPost).
+        when().
+                patch("http://localhost:3000/posts/{postId}", 1).
+        then().
+                statusCode(200).statusLine(containsString("OK"));
     }
 
 }

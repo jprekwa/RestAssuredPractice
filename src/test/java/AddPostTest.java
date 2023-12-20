@@ -1,6 +1,5 @@
 import io.restassured.http.ContentType;
 import model.Post;
-import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -8,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
 public class AddPostTest {
 
@@ -19,9 +19,12 @@ public class AddPostTest {
                 "    \"author\": \"Jakub\"\n" +
                 "}";
 
-        given().log().all().contentType(ContentType.JSON).body(newPostBody)
-                .when().post("http://localhost:3000/posts")
-                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
+        given().
+                contentType(ContentType.JSON).body(newPostBody).
+        when().
+                post("http://localhost:3000/posts").
+        then().
+                statusCode(201).statusLine(containsString("Created"));
     }
 
     //adding post from file in resources directory
@@ -29,9 +32,12 @@ public class AddPostTest {
     public void addPostFromFile() {
         File newPost = new File("src/test/resources/post.json");
 
-        given().log().all().contentType(ContentType.JSON).body(newPost)
-                .when().post("http://localhost:3000/posts")
-                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
+        given().
+                contentType(ContentType.JSON).body(newPost).
+        when().
+                post("http://localhost:3000/posts").
+        then().
+                statusCode(201).statusLine(containsString("Created"));
     }
 
     //adding post using map
@@ -41,9 +47,12 @@ public class AddPostTest {
         newPost.put("title", "Title From Map");
         newPost.put("author", "Jakub The Third");
 
-        given().log().all().contentType(ContentType.JSON).body(newPost)
-                .when().post("http://localhost:3000/posts")
-                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
+        given().
+                contentType(ContentType.JSON).body(newPost).
+        when().
+                post("http://localhost:3000/posts").
+        then().
+                statusCode(201).statusLine(containsString("Created"));
     }
 
     //adding post from Post class object in model directory
@@ -53,8 +62,11 @@ public class AddPostTest {
         newPost.setAuthor("Jakub The Fourth");
         newPost.setTitle("Title From Object");
 
-        given().log().all().contentType(ContentType.JSON).body(newPost)
-                .when().post("http://localhost:3000/posts")
-                .then().log().all().statusCode(201).statusLine(Matchers.containsString("Created"));
+        given().
+                contentType(ContentType.JSON).body(newPost).
+        when().
+                post("http://localhost:3000/posts").
+        then().
+                statusCode(201).statusLine(containsString("Created"));
     }
 }
