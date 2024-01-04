@@ -44,5 +44,11 @@ public class JsonPathTest {
 
         //getting sum of two numbers
         Integer moneySum = response.path("winners.collect{it.money}.sum()");
+
+        //getting id of winner with specific name
+        Integer winnerId = response.path("winners.find{it.name=='John'}.winnerId");
+
+        //getting list ids of winners with specific name
+        List<Integer> winnersId = response.path("winners.findAll{it.name=='John'}.winnerId");
     }
 }
